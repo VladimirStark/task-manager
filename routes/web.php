@@ -67,4 +67,10 @@ Route::get('/tasks/{id}', function ($id) {
     //  а также вывести красивую HTML-страницу, в которую
     // вставим информацию по выбранной из базы задачи
     return view('tasks.detail');
+})->whereNumber('id');
+
+// 3. Предоставить форму с созданием задачи
+Route::get('/tasks/create', function () {
+// десь надо предоставить TML-страницу с формой
+    return view('tasks.create');
 });
