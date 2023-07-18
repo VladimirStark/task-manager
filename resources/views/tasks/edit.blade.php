@@ -1,31 +1,31 @@
 @extends('layouts.main')
 
 @section('page')
-    <h1 class="text-center mb-4">Создание новой задачи</h1>
+    <h1 class="text-center mb-4">Редактирование задачи</h1>
     <form method="post" action="/tasks/create">
         @csrf
         <div class="mb-3">
             <label for="name" class="form-label">Название задачи</label>
-            <input type="text" class="form-control" id="name" name="name">
+            <input type="text" class="form-control" id="name" name="name" value="{{$task->preview}}">
         </div>
 
         <div class="mb-3">
             <label for="preview" class="form-label">Краткое описание задачи</label>
-            <input type="text" class="form-control" id="preview" name="preview">
+            <input type="text" class="form-control" id="preview" name="preview" value="{{$task->preview}}"/>
         </div>
 
         <div class="mb-3">
             <label for="text" class="form-label">Полный текст задачи</label>
-            <textarea class="form-control" id="text" rows="3" name="text"></textarea>
+            <textarea class="form-control" id="text" rows="3" name="text">{{$task->detail}}</textarea>
         </div>
 
         <div class="mb-3">
             <label for="file" class="form-label">Вложения</label>
-            <input class="form-control" type="file" id="file" name="file" />
+            <input class="form-control" type="file" id="file" name="file" value="{{$task->file}}"/>
         </div>
 
         <div class="form-check mb-3">
-            <input class="form-check-input" type="checkbox" value="1" id="priority" name="priority">
+            <input class="form-check-input" type="checkbox" value="1" @checked($task->priority == 1) id="priority" name="priority">
             <label class="form-check-label" for="priority">Высокий приоритет</label>
         </div>
 

@@ -1,10 +1,12 @@
 @extends('layouts.main')
 
 @section('page')
-    <h1>Заголовок задач</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        Adipisci aperiam at corporis facere ipsam quod repellat?
-        A autem inventore iste molestias nam perspiciatis quos repellendus,
-        saepe unde. Corporis dignissimos ducimus explicabo modi odit provident
-        quos repellendus rerum veniam, voluptatem voluptates.</p>
+    <h4>Задача создана {{$task->created_at}}</h4>
+    <h1>{{$task->name}}</h1>
+    <p>{{$task->preview}}</p>
+    <p>{{$task->detail}}</p>
+    @if($task->priority==1)
+        <p class="text-denger">Важно</p>
+    @endif
+    <a href="/tasks/{{$task->id}}/edit" class="btn btn-warning">Редактировать</a>
 @endsection
