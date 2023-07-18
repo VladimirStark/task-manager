@@ -29,7 +29,7 @@
             <label class="form-check-label" for="priority">Высокий приоритет</label>
         </div>
 
-        <button type="submit" class="btn btn-primary w-100">Создать задачу</button>
+        <button type="submit" class="btn btn-primary w-100">Редактировать задачу</button>
     </form>
     {{--
     Форма должна иметь следующие поля:
