@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Task;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -73,4 +74,25 @@ Route::get('/tasks/{id}', function ($id) {
 Route::get('/tasks/create', function () {
 // десь надо предоставить TML-страницу с формой
     return view('tasks.create');
+});
+
+// 4. Обработчик формы создания задачи
+Route::post('/tasks/create', function (\Illuminate\Http\Request $request) {
+
+    // 1. Собрать данные с формы
+    // dd($request->all());
+    $data = $request->all();
+
+    // 2. Записать их в базу данных
+    $task = new Task();
+    $task->name = $data['name'];
+    $task->preview = $data['preview'];
+    $task->detail = $data['text'];
+    $task->file = $data['file'];
+    $task->priority = $data['priority'];
+    $task->status_id = 1;
+    $task->save();
+
+    // 3. Перенаправить на страницу со списком задач
+    return redirect('/tasks');
 });

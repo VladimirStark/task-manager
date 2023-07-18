@@ -3,7 +3,7 @@
 @section('page')
     <h1 class="text-center mb-4">Мои задачи</h1>
     <div class="row">
-        @for($i = 1; $i < 41; $i++)
+        @for($i = 1; $i < 8; $i++)
         <div class="col-3">
             <div class="card mb-4">
                 <img src="..." class="card-img-top" alt="...">
