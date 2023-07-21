@@ -18,7 +18,7 @@ return new      class extends Migration
             $table->text('detail'); // Полный текст задачи
             $table->string('file'); // Вложение
             $table->boolean('priority')->default(false); // Высокий приоритет
-            $table->foreignId('status_id')->references('id')->on('tasks');
+            $table->foreignId('status_id')->references('id')->on('statuses');
             $table->timestamps();
         });
     }

@@ -9,6 +9,7 @@
                 <img src="..." class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{ $task->name }}</h5>
+                    <p>{{ $task->status->name }}</p>
                     <p class="card-text">{{ $task->preview }}</p>
                     <a href="/tasks/{{ $task->id }}" class="btn btn-primary">Go somewhere</a>
                 </div>
