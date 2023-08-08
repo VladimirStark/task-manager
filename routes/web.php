@@ -55,33 +55,41 @@ Route::get('/login', function () {
 
 
 // 1. Предоставить страницу со списком задач
-Route::get('/tasks', function () {
+Route::get('/tasks', [\App\Http\Controllers\TaskController::class, 'index']);
+
+    //function () {
     // Здесь нужно вывести HTML-страницу со списком задач
     // 1. Соберем все задачи из базы
-    $tasks = Task::all();
+    // $tasks = Task::all();
     // 2. Выведем hTML-страницу со списком задач
-    return view('tasks.list', ['tasks' =>  $tasks]);
-});
+    // return view('tasks.list', ['tasks' =>  $tasks]);
+// });
 
 // 2. Предоставить страницу с детальным отображением определенной задачи
-Route::get('/tasks/{id}', function ($id) {
+Route::get('/tasks/{id}', [\App\Http\Controllers\TaskController::class, 'show'])->whereNumber('id');
+
+    // function ($id) {
     // Здесь запрограммировать логику получения из базы
     // задачи с номером $id
-    $task = Task::find($id);
+    // $task = Task::find($id);
 
     // а также вывести красивую HTML-страницу, в которую
     // вставим информацию по выбранной из базы задачи
-    return view('tasks.detail', ['task' => $task]);
-})->whereNumber('id');
+    // return view('tasks.detail', ['task' => $task]);
+
 
 // 3. Предоставить форму с созданием задачи
-Route::get('/tasks/create', function () {
+Route::get('/tasks/create', [\App\Http\Controllers\TaskController::class, 'create']);
+
+    // function () {
     // Здесь надо предоставить HTML-страницу с формой
-    return view('tasks.create');
-});
+    // return view('tasks.create');
+// });
 
 // 4. Обработчик формы создания задачи
-Route::post('/tasks/create', function (\Illuminate\Http\Request $request) {
+Route::post('/tasks/create', [\App\Http\Controllers\TaskController::class, 'store']);
+   /*
+    function (\Illuminate\Http\Request $request) {
     // 1. Собрать данные с формы
     // dd($request->all());
     $data = $request->all();
@@ -99,9 +107,12 @@ Route::post('/tasks/create', function (\Illuminate\Http\Request $request) {
     // 3. Перенаправить на страницу со списком задач
     return redirect('/tasks');
 });
+   */
 
 // 5. Предоставить форму с редактированием задачи
-Route::get('/tasks/{id}/edit', function ($id) {
+Route::get('/tasks/{id}/edit', [\App\Http\Controllers\TaskController::class, 'edit']);
+    /*
+    function ($id) {
    // Алгоритм
     // 1. Получить из базы данных по задаче $id
 
@@ -110,3 +121,10 @@ Route::get('/tasks/{id}/edit', function ($id) {
     // 2. Показать HTML-страницу с формой редактирования задачи с номером $id
     return view('tasks.edit', ['task' => $task]);
 });
+*/
+
+// 6. Обработчик формы создания нового коментария к задаче
+Route::post('/tasks/{id}/comment', [\App\Http\Controllers\TaskController::class, 'comment']);
+
+// 7. Обработчик кнопки определенного коментария
+Route::post('/comment/{id}/delete', [\App\Http\Controllers\TaskController::class, 'deleteComment']);
