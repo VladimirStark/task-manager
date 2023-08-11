@@ -128,3 +128,7 @@ Route::post('/tasks/{id}/comment', [\App\Http\Controllers\TaskController::class,
 
 // 7. Обработчик кнопки определенного коментария
 Route::post('/comment/{id}/delete', [\App\Http\Controllers\TaskController::class, 'deleteComment']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
