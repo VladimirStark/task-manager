@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -29,8 +30,8 @@ class TaskController extends Controller
     public function index()
     {
         // Здесь нужно вывести HTML-страницу со списком задач
-        // 1. Соберем все задачи из базы
-        $tasks = Task::all();
+        // Собираем задачи авторизованного пользователя      1. Соберем все задачи из базы
+        $tasks = Task::where('user_id', '=', Auth::id())->get(); // all();
         // 2. Выведем hTML-страницу со списком задач
         return view('tasks.list', ['tasks' =>  $tasks]);
     }
@@ -41,8 +42,15 @@ class TaskController extends Controller
         // задачи с номером $id
         $task = Task::find($id);
 
+        if (Auth::user()->can('view', $task)) {
+
+
         // а также вывести красивую HTML-страницу, в которую
         // вставим информацию по выбранной из базы задачи
+        }
+        else {
+            abort(404);
+        }
         return view('tasks.detail', ['task' => $task]);
     }
 
@@ -66,6 +74,7 @@ class TaskController extends Controller
         $task->file = $data['file'];
         $task->priority = $data['priority'];
         $task->status_id = 1;
+        $task->user_id = Auth::id();
         $task->save();
 
         // 3. Перенаправить на страницу со списком задач

@@ -19,6 +19,7 @@ return new      class extends Migration
             $table->string('file'); // Вложение
             $table->boolean('priority')->default(false); // Высокий приоритет
             $table->foreignId('status_id')->references('id')->on('statuses');
+            $table->foreignId('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

@@ -53,7 +53,26 @@ Route::get('/login', function () {
 
 
 
-
+Route::middleware('auth')->group(function()
+{
+    // Здесь будут перечислены все маршруты
+    // под защитой авторизации
+    // 1. Предоставить страницу со списком задач
+    Route::get('/tasks', [\App\Http\Controllers\TaskController::class, 'index']);
+    // 2. Предоставить страницу с детальным отображением определенной задачи
+    Route::get('/tasks/{id}', [\App\Http\Controllers\TaskController::class, 'show'])->whereNumber('id');
+    // 3. Предоставить форму с созданием задачи
+    Route::get('/tasks/create', [\App\Http\Controllers\TaskController::class, 'create']);
+    // 4. Обработчик формы создания задачи
+    Route::post('/tasks/create', [\App\Http\Controllers\TaskController::class, 'store']);
+    // 5. Предоставить форму с редактированием задачи
+    Route::get('/tasks/{id}/edit', [\App\Http\Controllers\TaskController::class, 'edit']);
+    // 6. Обработчик формы создания нового коментария к задаче
+    Route::post('/tasks/{id}/comment', [\App\Http\Controllers\TaskController::class, 'comment']);
+    // 7. Обработчик кнопки определенного коментария
+    Route::post('/comment/{id}/delete', [\App\Http\Controllers\TaskController::class, 'deleteComment']);
+});
+/*
 // 1. Предоставить страницу со списком задач
 Route::get('/tasks', [\App\Http\Controllers\TaskController::class, 'index']);
 
@@ -108,7 +127,7 @@ Route::post('/tasks/create', [\App\Http\Controllers\TaskController::class, 'stor
     return redirect('/tasks');
 });
    */
-
+/*
 // 5. Предоставить форму с редактированием задачи
 Route::get('/tasks/{id}/edit', [\App\Http\Controllers\TaskController::class, 'edit']);
     /*
@@ -121,13 +140,13 @@ Route::get('/tasks/{id}/edit', [\App\Http\Controllers\TaskController::class, 'ed
     // 2. Показать HTML-страницу с формой редактирования задачи с номером $id
     return view('tasks.edit', ['task' => $task]);
 });
-*/
 
 // 6. Обработчик формы создания нового коментария к задаче
 Route::post('/tasks/{id}/comment', [\App\Http\Controllers\TaskController::class, 'comment']);
 
 // 7. Обработчик кнопки определенного коментария
 Route::post('/comment/{id}/delete', [\App\Http\Controllers\TaskController::class, 'deleteComment']);
+*/
 
 Auth::routes();
 
