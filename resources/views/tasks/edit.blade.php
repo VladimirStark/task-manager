@@ -25,7 +25,7 @@
         </div>
 
         <div class="form-check mb-3">
-            <input class="form-check-input" type="checkbox" value="1" @checked($task->priority == 1) id="priority" name="priority">
+            <input class="form-check-input" type="checkbox" value="1" @checked($task->priority == 1) id="priority" name="priority"/>
             <label class="form-check-label" for="priority">Высокий приоритет</label>
         </div>
 

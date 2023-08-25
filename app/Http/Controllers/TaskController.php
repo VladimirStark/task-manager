@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateTaskRequest;
 use App\Models\Comment;
 use App\Models\Task;
 use Illuminate\Http\Request;
@@ -60,11 +61,11 @@ class TaskController extends Controller
         return view('tasks.create');
     }
 
-    public function store(Request $request)
+    public function store(CreateTaskRequest $request)
     {
-        // 1. Собрать данные с формы
+        // 1. Собрать проверенные данные с формы
         // dd($request->all());
-        $data = $request->all();
+        $data = $request->validated();
 
         // 2. Записать их в базу
         $task = new Task();
@@ -72,7 +73,7 @@ class TaskController extends Controller
         $task->preview = $data['preview'];
         $task->detail = $data['text'];
         $task->file = $data['file'];
-        $task->priority = $data['priority'];
+        $task->priority = isset($data['priority']);
         $task->status_id = 1;
         $task->user_id = Auth::id();
         $task->save();
